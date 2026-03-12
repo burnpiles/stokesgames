@@ -1,101 +1,191 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { Play, Trophy, ChevronRight, Zap } from 'lucide-react'
+import { GameCard } from '@/components/game/GameCard'
+import { TwinChallengeBanner } from '@/components/game/TwinChallengeBanner'
+import { LiveLeaderboardTicker } from '@/components/home/LiveLeaderboardTicker'
+import { CategoryPills } from '@/components/home/CategoryPills'
+import { SEED_GAMES, SEED_CHALLENGE, SEED_LEADERBOARD } from '@/lib/seed-data'
 
-export default function Home() {
+export default function HomePage() {
+  const challenge = SEED_CHALLENGE  // TODO: fetch from DB
+  const games = SEED_GAMES
+  const leaderboard = SEED_LEADERBOARD
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      {/* Twin Challenge Banner */}
+      {challenge?.isActive && <TwinChallengeBanner challenge={challenge} />}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {/* Hero */}
+      <section className="relative grain-overlay overflow-hidden">
+        {/* Hero banner image — using <img> so GIFs animate */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/hero-banner.gif"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {/* Dark gradient overlay for text readability */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.4) 100%)' }}
+          aria-hidden
+        />
+        {/* Bottom fade to site bg */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-32"
+          style={{ background: 'linear-gradient(to bottom, transparent, var(--bg-primary))' }}
+          aria-hidden
+        />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-24 text-center">
+          {/* Live badge */}
+          {challenge?.isActive && (
+            <div className="inline-flex items-center gap-2 bg-[var(--bg-card)] border border-[var(--accent-primary)] px-3 py-1.5 rounded-full text-xs text-[var(--accent-primary)] mb-8">
+              <span className="live-dot" />
+              <span style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}>
+                TWIN CHALLENGE ACTIVE
+              </span>
+            </div>
+          )}
+
+          {/* Main headline */}
+          <h1
+            className="text-[clamp(3rem,12vw,9rem)] leading-none text-white mb-4"
+            style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            PLAY.{' '}
+            <span className="text-[var(--accent-primary)]">COMPETE.</span>
+            {' '}WIN.
+          </h1>
+
+          <p className="text-[var(--text-secondary)] text-lg sm:text-xl max-w-xl mx-auto mb-10">
+            The official game hub of{' '}
+            <span className="text-white font-medium">Alex &amp; Alan Stokes</span>
+          </p>
+
+          {/* CTAs */}
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <Link
+              href="/games"
+              className="flex items-center gap-2 px-8 py-4 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-lg text-sm transition-all shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_40px_var(--accent-glow-strong)]"
+              style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.08em', fontSize: '1rem' }}
+            >
+              <Play size={18} fill="white" />
+              PLAY NOW
+            </Link>
+            <Link
+              href="/leaderboard"
+              className="flex items-center gap-2 px-8 py-4 border border-[var(--border)] hover:border-[var(--accent-primary)] text-[var(--text-secondary)] hover:text-white rounded-lg text-sm transition-all"
+              style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.08em', fontSize: '1rem' }}
+            >
+              <Trophy size={16} />
+              VIEW LEADERBOARD
+            </Link>
+          </div>
+
+          {/* Social proof */}
+          <div className="flex items-center justify-center gap-6 mt-10 text-[var(--text-muted)] text-sm">
+            <a
+              href="https://www.youtube.com/c/StokesTwins"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
+            >
+              <span className="text-[var(--success)] font-medium">137M+</span> subscribers
+            </a>
+            <div className="w-px h-4 bg-[var(--border)]" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-[var(--accent-primary)] font-medium">{games.length}</span> games
+            </div>
+            <div className="w-px h-4 bg-[var(--border)]" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-white font-medium">500K+</span> players
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
+      </section>
+
+      {/* Live Leaderboard Ticker */}
+      <LiveLeaderboardTicker entries={leaderboard} />
+
+      {/* Category Pills */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 mt-12">
+        <CategoryPills />
+      </section>
+
+      {/* Featured Games */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 mt-8 mb-20">
+        <div className="flex items-center justify-between mb-6">
+          <h2
+            className="text-3xl text-white"
+            style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
+          >
+            FEATURED GAMES
+          </h2>
+          <Link
+            href="/games"
+            className="flex items-center gap-1 text-[var(--text-secondary)] hover:text-white text-sm transition-colors"
+          >
+            View all <ChevronRight size={14} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {games.map((game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
+        </div>
+      </section>
+
+      {/* Challenge CTA Section */}
+      {challenge?.isActive && (
+        <section className="relative overflow-hidden grain-overlay mb-20">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'linear-gradient(135deg, rgba(255,61,0,0.08) 0%, transparent 60%)' }}
             aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 border border-[var(--border)] rounded-2xl p-8 bg-[var(--bg-card)]">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="live-dot" />
+                  <span
+                    className="text-[var(--accent-primary)] text-sm tracking-widest"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    ACTIVE CHALLENGE
+                  </span>
+                </div>
+                <h2
+                  className="text-4xl text-white mb-2"
+                  style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.04em' }}
+                >
+                  ⚡ TWIN CHALLENGE
+                </h2>
+                <p className="text-[var(--text-secondary)]">
+                  Alex scored <span className="text-white font-medium">{challenge.alexScore.toLocaleString()}</span>.{' '}
+                  Alan scored <span className="text-white font-medium">{challenge.alanScore.toLocaleString()}</span>.{' '}
+                  Can you beat them?
+                </p>
+                <p className="text-[var(--text-muted)] text-sm mt-1">
+                  <span className="text-[var(--success)]">{challenge.winnerCount} players</span> have already beaten them
+                </p>
+              </div>
+              <Link
+                href="/challenge"
+                className="shrink-0 flex items-center gap-2 px-8 py-4 bg-[var(--accent-primary)] hover:bg-[var(--accent-secondary)] text-white rounded-lg text-sm transition-all shadow-[0_0_20px_var(--accent-glow)]"
+                style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.08em', fontSize: '1rem' }}
+              >
+                <Zap size={16} />
+                ACCEPT THE CHALLENGE
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  )
 }

@@ -1,27 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..900;1,9..40,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─── CSS Variables ───────────────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --accent-primary: #FF3D00;
+  --accent-secondary: #FF6B35;
+  --accent-glow: rgba(255, 61, 0, 0.3);
+  --accent-glow-strong: rgba(255, 61, 0, 0.5);
+  --text-primary: #FFFFFF;
+  --text-secondary: #999999;
+  --text-muted: #555555;
+  --border: #222222;
+  --border-active: #FF3D00;
+  --success: #00FF94;
+  --gold: #FFD700;
+  --silver: #C0C0C0;
+  --bronze: #CD7F32;
+  --radius: 8px;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Reset ──────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────────────── */
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.score-number {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Utility Classes ─────────────────────────────────────────────────────── */
+
+.text-accent { color: var(--accent-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.bg-card { background-color: var(--bg-card); }
+.border-default { border-color: var(--border); }
+
+/* ─── Glow Effects ────────────────────────────────────────────────────────── */
+
+.glow { box-shadow: 0 0 20px var(--accent-glow); }
+.glow-strong { box-shadow: 0 0 30px var(--accent-glow-strong), 0 0 60px var(--accent-glow); }
+.glow-gold { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+.glow-success { box-shadow: 0 0 20px rgba(0, 255, 148, 0.3); }
+
+/* ─── Card Hover ──────────────────────────────────────────────────────────── */
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  border: 1px solid var(--border);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(255, 61, 0, 0.15);
+  border-color: var(--accent-primary);
+}
+
+/* ─── Grain Texture Overlay ───────────────────────────────────────────────── */
+
+.grain-overlay {
+  position: relative;
+}
+
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  z-index: 1;
+}
+
+/* ─── Skeleton Loading ────────────────────────────────────────────────────── */
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.skeleton {
+  background: var(--bg-card);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: var(--radius);
+}
+
+/* ─── Rank Badge Colors ───────────────────────────────────────────────────── */
+
+.rank-rookie     { color: #888888; }
+.rank-contender  { color: #4A9EFF; }
+.rank-elite      { color: #A855F7; }
+.rank-twin-level { color: var(--accent-primary); }
+
+@keyframes stokemaster-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.rank-stokemaster {
+  background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700, #FFEC6B, #FFD700);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: stokemaster-shimmer 2s ease infinite;
+}
+
+/* ─── Leaderboard Row ─────────────────────────────────────────────────────── */
+
+.leaderboard-row {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.leaderboard-row.current-user {
+  background: linear-gradient(90deg, rgba(255,61,0,0.08), transparent);
+  border-left: 2px solid var(--accent-primary);
+}
+
+.leaderboard-row.top-1 { background: rgba(255, 215, 0, 0.06); }
+.leaderboard-row.top-2 { background: rgba(192, 192, 192, 0.06); }
+.leaderboard-row.top-3 { background: rgba(205, 127, 50, 0.06); }
+
+/* ─── Live Ticker ─────────────────────────────────────────────────────────── */
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  animation: ticker-scroll 40s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Challenge Pulse ─────────────────────────────────────────────────────── */
+
+@keyframes challenge-pulse {
+  0%, 100% { border-color: var(--accent-primary); opacity: 1; }
+  50%       { border-color: var(--accent-secondary); opacity: 0.7; }
+}
+
+.challenge-border {
+  animation: challenge-pulse 2s ease-in-out infinite;
+}
+
+/* ─── Score Reveal ────────────────────────────────────────────────────────── */
+
+@keyframes score-reveal {
+  from { opacity: 0; transform: scale(0.5) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.score-reveal {
+  animation: score-reveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ─── Live Badge ──────────────────────────────────────────────────────────── */
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: live-pulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Top Border Accent on Hover ──────────────────────────────────────────── */
+
+.border-top-accent {
+  position: relative;
+}
+
+.border-top-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: var(--radius) var(--radius) 0 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.border-top-accent:hover::before {
+  opacity: 1;
+}
+
+/* ─── Radial Hero Pulse ───────────────────────────────────────────────────── */
+
+@keyframes hero-pulse {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%       { opacity: 0.25; transform: scale(1.1); }
+}
+
+.hero-glow {
+  animation: hero-pulse 4s ease-in-out infinite;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── Focus ───────────────────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Selection ───────────────────────────────────────────────────────────── */
+
+::selection {
+  background: var(--accent-glow);
+  color: var(--text-primary);
+}
+
+/* ─── Reduced Motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ticker-track { animation: none; }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }

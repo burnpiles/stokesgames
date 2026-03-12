@@ -1,0 +1,156 @@
+export const TRIVIA_CONFIG = {
+  timePerQuestion: 10,    // seconds
+  totalQuestions: 15,     // drawn randomly from pool each game
+  basePoints: 100,
+  speedBonus: 50,         // max bonus for answering instantly
+  maxScore: 2250,         // 15 questions * 150 max pts each
+}
+
+export const TRIVIA_QUESTIONS = [
+  // ── Stokes Twins ──────────────────────────────────────────────────────────
+  { question: "What year were the Stokes Twins born?", options: ["1999", "2000", "2001", "2002"], answer: 0 },
+  { question: "In what US state did the Stokes Twins grow up?", options: ["California", "Texas", "Florida", "New York"], answer: 2 },
+  { question: "Which twin is older?", options: ["Alex", "Alan", "They're exactly the same", "It changes monthly"], answer: 0 },
+  { question: "Which platform did the twins first go viral on?", options: ["TikTok", "Instagram", "YouTube", "Vine"], answer: 2 },
+  { question: "How many YouTube subscribers do the Stokes Twins have (approx.)?", options: ["40 million", "80 million", "140 million", "200 million"], answer: 2 },
+  { question: "What color is Alex typically associated with on the channel?", options: ["Blue", "Red/Orange", "Green", "Purple"], answer: 0 },
+  { question: "The twins are known for what type of content?", options: ["Cooking tutorials", "Gaming reviews", "Pranks & Challenges", "Travel vlogs"], answer: 2 },
+  { question: "Which twin is known for being more competitive?", options: ["Alex", "Alan", "Neither — they're equal", "Both claim to be"], answer: 3 },
+  { question: "What is the name of the Stokes Twins' YouTube channel?", options: ["Twin Nation", "Stokes Bros", "Stokes Twins", "Double Trouble"], answer: 2 },
+  { question: "What is Alan's signature color on the channel?", options: ["Blue", "Red/Orange", "Green", "Yellow"], answer: 1 },
+  { question: "The Stokes Twins are identical twins. True or False?", options: ["True", "False", "Sort of", "No one knows"], answer: 0 },
+  { question: "What city are the Stokes Twins based out of?", options: ["Miami", "New York", "Los Angeles", "Chicago"], answer: 2 },
+  { question: "How many subscribers did the Stokes Twins have when they first hit 1 million?", options: ["1M — that's literally it", "1.1M", "999K", "1M is 1M bro"], answer: 0 },
+  { question: "Which Stokes Twin appeared in more thumbnails wearing blue hoodies?", options: ["Alex", "Alan", "They swap", "Neither"], answer: 0 },
+  { question: "What is the Stokes Twins' catch phrase / vibe?", options: ["Stay Lit", "Let's Go", "Get Stoked", "Twin Mode"], answer: 2 },
+
+  // ── StokeGames ────────────────────────────────────────────────────────────
+  { question: "Which game on StokeGames has the highest Stokes Score?", options: ["Twin Trivia", "Stokes Runner", "Flappy Stokes", "Stokes Snake"], answer: 2 },
+  { question: "What rank do you earn at the top level on StokeGames?", options: ["ELITE", "TWIN-LEVEL", "STOKEMASTER", "CONTENDER"], answer: 2 },
+  { question: "What does 'StokeGames' brand color represent?", options: ["Alex's energy", "Alan's energy", "Both twins' combined hype", "The game fire"], answer: 2 },
+  { question: "In Flappy Stokes, which score earns a perfect medal?", options: ["50+", "75+", "100+", "150+"], answer: 2 },
+  { question: "What is the Twin Challenge prize?", options: ["Cash prize", "Signed merch + shoutout", "Trip to meet the twins", "Free subscription"], answer: 1 },
+
+  // ── Gen-Z Slang ───────────────────────────────────────────────────────────
+  { question: "What does 'rizz' mean in Gen-Z slang?", options: ["A dance move", "Charisma / ability to attract", "A type of snack", "A gaming term"], answer: 1 },
+  { question: "What does 'no cap' mean?", options: ["Without a hat", "I'm not lying / for real", "Game over", "Something cheap"], answer: 1 },
+  { question: "If someone is 'slay-ing', they are...?", options: ["Killing it / doing amazing", "Playing a game", "Telling jokes", "Running fast"], answer: 0 },
+  { question: "What does 'bussin' mean?", options: ["Taking the bus", "Really good / fire", "Being loud", "Dancing"], answer: 1 },
+  { question: "What does 'lowkey' mean?", options: ["Quiet music", "Secretly / kind of", "Basement level", "Easy game"], answer: 1 },
+  { question: "What does 'it's giving...' mean when Gen-Z uses it?", options: ["It's donating", "It reminds me of / has the vibe of", "It's throwing away", "It's expensive"], answer: 1 },
+  { question: "What does 'fr fr' mean?", options: ["France forever", "For real, for real — seriously", "Free run", "Friend request"], answer: 1 },
+  { question: "What does 'understood the assignment' mean?", options: ["Did homework", "Nailed it / knew exactly what to do", "Read the instructions", "Passed the test"], answer: 1 },
+  { question: "What does 'rent free' mean in internet slang?", options: ["Free housing", "Can't stop thinking about it", "No cost", "Living with parents"], answer: 1 },
+  { question: "What does 'main character energy' mean?", options: ["Being the star of your own life", "Playing the main role in a game", "Being dramatic", "All of the above kinda"], answer: 0 },
+  { question: "If something is 'mid', what does that mean?", options: ["Middle of the map", "Mediocre / average", "Midnight", "Midterm exam"], answer: 1 },
+  { question: "What does 'ate' mean in slang ('she ate that look')?", options: ["Consumed food", "Absolutely killed it / nailed it", "Deleted it", "Stole it"], answer: 1 },
+  { question: "What does 'touch grass' mean?", options: ["Garden work needed", "Go outside / get off the internet", "Smooth a lawn", "Calm down"], answer: 1 },
+  { question: "What does 'based' mean as Gen-Z slang?", options: ["At a military base", "Confident and unapologetic in your opinions", "Floor-level", "Found in a basement"], answer: 1 },
+  { question: "What does 'vibe check' mean?", options: ["Checking vibration levels", "Assessing someone's energy/mood", "A music test", "Checking your phone"], answer: 1 },
+
+  // ── World Geography / Capitals ────────────────────────────────────────────
+  { question: "What is the capital of Australia?", options: ["Sydney", "Melbourne", "Canberra", "Brisbane"], answer: 2 },
+  { question: "What is the capital of Canada?", options: ["Toronto", "Vancouver", "Montreal", "Ottawa"], answer: 3 },
+  { question: "What is the capital of Japan?", options: ["Osaka", "Kyoto", "Tokyo", "Hiroshima"], answer: 2 },
+  { question: "What is the capital of Brazil?", options: ["Rio de Janeiro", "São Paulo", "Brasília", "Salvador"], answer: 2 },
+  { question: "What is the capital of Germany?", options: ["Munich", "Frankfurt", "Hamburg", "Berlin"], answer: 3 },
+  { question: "Which country has the most people in the world?", options: ["USA", "India", "China", "Russia"], answer: 1 },
+  { question: "What is the longest river in the world?", options: ["Amazon", "Mississippi", "Nile", "Yangtze"], answer: 2 },
+  { question: "How many continents are there?", options: ["5", "6", "7", "8"], answer: 2 },
+  { question: "What is the capital of South Korea?", options: ["Busan", "Seoul", "Incheon", "Daegu"], answer: 1 },
+  { question: "What is the largest country by land area?", options: ["Canada", "China", "USA", "Russia"], answer: 3 },
+  { question: "Which ocean is the largest?", options: ["Atlantic", "Indian", "Pacific", "Arctic"], answer: 2 },
+  { question: "What is the capital of Mexico?", options: ["Guadalajara", "Monterrey", "Mexico City", "Cancún"], answer: 2 },
+  { question: "What is the tallest mountain in the world?", options: ["K2", "Mount Everest", "Kangchenjunga", "Mont Blanc"], answer: 1 },
+  { question: "Which country is NOT in Europe?", options: ["Portugal", "Turkey", "Morocco", "Poland"], answer: 2 },
+  { question: "How many stars are on the US flag?", options: ["48", "50", "52", "56"], answer: 1 },
+
+  // ── Pop Culture ───────────────────────────────────────────────────────────
+  { question: "Which movie franchise features the 'Avengers'?", options: ["DC Comics", "Marvel", "Star Wars", "Transformers"], answer: 1 },
+  { question: "What year did TikTok launch globally?", options: ["2016", "2017", "2018", "2019"], answer: 2 },
+  { question: "What show featured 'The Upside Down'?", options: ["The Boys", "Stranger Things", "Squid Game", "Dark"], answer: 1 },
+  { question: "Which artist released 'Bad Guy'?", options: ["Ariana Grande", "Dua Lipa", "Billie Eilish", "Olivia Rodrigo"], answer: 2 },
+  { question: "What is the name of the character Baby Yoda's real name in The Mandalorian?", options: ["Grogu", "Yoda Jr.", "The Child", "Koba"], answer: 0 },
+  { question: "Which app uses the 'Explore' page and double-tap to heart?", options: ["TikTok", "Twitter/X", "Instagram", "Snapchat"], answer: 2 },
+  { question: "Squid Game is originally from which country?", options: ["Japan", "China", "South Korea", "Thailand"], answer: 2 },
+  { question: "What platform does 'MrBeast' primarily use?", options: ["Twitch", "TikTok", "YouTube", "Instagram"], answer: 2 },
+  { question: "Which Olivia Rodrigo album includes 'Drivers License'?", options: ["GUTS", "SOUR", "Vampire", "brutal"], answer: 1 },
+  { question: "What is the most-liked video on YouTube?", options: ["Gangnam Style", "Despacito", "Baby Shark", "Shape of You"], answer: 2 },
+  { question: "Which video game features 'Battle Royale' on Fortnite Island?", options: ["Minecraft", "Call of Duty", "Fortnite", "Apex Legends"], answer: 2 },
+  { question: "What is Roblox primarily known as?", options: ["A movie platform", "A game creation platform", "A social network", "A music app"], answer: 1 },
+  { question: "Who created Minecraft?", options: ["Mark Zuckerberg", "Markus 'Notch' Persson", "Elon Musk", "Gabe Newell"], answer: 1 },
+  { question: "Which streaming service created 'Stranger Things'?", options: ["Hulu", "HBO Max", "Netflix", "Disney+"], answer: 2 },
+  { question: "What does GOAT stand for in sports/internet culture?", options: ["Greatest of All Turns", "Greatest of All Time", "Going on All Terrains", "Golden of All Titles"], answer: 1 },
+
+  // ── Social Media ──────────────────────────────────────────────────────────
+  { question: "What is the blue checkmark on social media called?", options: ["Verified badge", "Gold star", "Trust seal", "Premium mark"], answer: 0 },
+  { question: "What does 'DM' stand for on social media?", options: ["Digital Media", "Direct Message", "Daily Meme", "Delete Me"], answer: 1 },
+  { question: "Twitter was rebranded to what name?", options: ["Threads", "X", "Bluesky", "Tweet"], answer: 1 },
+  { question: "What is the maximum length of an original TikTok video currently?", options: ["1 minute", "3 minutes", "10 minutes", "15 minutes"], answer: 2 },
+  { question: "What does 'going viral' mean?", options: ["Getting sick online", "Content spreading very fast", "Hacking someone", "Being trending for one day"], answer: 1 },
+  { question: "What is a 'finsta'?", options: ["Fake + Instagram (private account)", "Final Instagram post", "Finnish Instagram account", "Fast Instagram"], answer: 0 },
+  { question: "What does 'POV' stand for in TikTok content?", options: ["Player of View", "Point of View", "Post on Video", "Part of Video"], answer: 1 },
+  { question: "How many characters are in a standard tweet?", options: ["140", "160", "280", "300"], answer: 2 },
+  { question: "What is a 'story' on Instagram?", options: ["A long post", "A 24-hour disappearing video/photo", "A highlight reel", "A live stream"], answer: 1 },
+  { question: "What does 'spam' mean in DMs?", options: ["Canned pork product", "Unwanted repeated messages", "A filter on photos", "Secret private account message"], answer: 1 },
+
+  // ── Science & Nature ──────────────────────────────────────────────────────
+  { question: "What is the speed of light (approximately)?", options: ["300,000 km/s", "150,000 km/s", "30,000 km/s", "3,000,000 km/s"], answer: 0 },
+  { question: "How many bones are in the adult human body?", options: ["196", "206", "216", "226"], answer: 1 },
+  { question: "What gas do plants absorb from the atmosphere?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"], answer: 2 },
+  { question: "What is the closest planet to the sun?", options: ["Venus", "Earth", "Mercury", "Mars"], answer: 2 },
+  { question: "What percentage of Earth's surface is water?", options: ["50%", "61%", "71%", "81%"], answer: 2 },
+  { question: "What is the chemical symbol for gold?", options: ["Go", "Gd", "Au", "Ag"], answer: 2 },
+  { question: "How many chromosomes do humans have?", options: ["23", "44", "46", "48"], answer: 2 },
+  { question: "What is the hottest planet in the solar system?", options: ["Mercury", "Venus", "Mars", "Jupiter"], answer: 1 },
+  { question: "Which animal has the largest brain relative to body size?", options: ["Elephant", "Dolphin", "Human", "Blue whale"], answer: 2 },
+  { question: "What is H2O more commonly known as?", options: ["Hydrogen", "Helium", "Water", "Oxygen"], answer: 2 },
+
+  // ── Sports ────────────────────────────────────────────────────────────────
+  { question: "How many players are on a basketball team on the court?", options: ["4", "5", "6", "7"], answer: 1 },
+  { question: "Which sport uses a 'birdie' in scoring?", options: ["Tennis", "Golf", "Badminton", "Cricket"], answer: 1 },
+  { question: "How long is an Olympic marathon?", options: ["26.2 miles", "24 miles", "30 miles", "25 miles"], answer: 0 },
+  { question: "Which team has the most NBA championships?", options: ["LA Lakers", "Chicago Bulls", "Boston Celtics", "Golden State Warriors"], answer: 2 },
+  { question: "In which sport would you use a 'half-pipe'?", options: ["Swimming", "Skateboarding/Snowboarding", "Gymnastics", "Track & Field"], answer: 1 },
+  { question: "What sport does LeBron James play?", options: ["Football", "Baseball", "Basketball", "Soccer"], answer: 2 },
+  { question: "How many points is a touchdown worth in American football?", options: ["3", "5", "6", "7"], answer: 2 },
+  { question: "Which country invented basketball?", options: ["USA", "Canada", "UK", "Brazil"], answer: 0 },
+  { question: "What does FIFA stand for?", options: ["Federation Internationale de Football Association", "Fun International Football Awards", "First International Football Association", "French International Football Association"], answer: 0 },
+  { question: "In soccer/football, how long is a standard match?", options: ["60 min", "80 min", "90 min", "120 min"], answer: 2 },
+
+  // ── Tech & Gaming ─────────────────────────────────────────────────────────
+  { question: "What does GPU stand for?", options: ["General Processing Unit", "Graphics Processing Unit", "Gaming Power Unit", "Global Program Utility"], answer: 1 },
+  { question: "What does 'GG' mean in gaming?", options: ["Go Go", "Good Game", "Got Game", "Gaming Goal"], answer: 1 },
+  { question: "Which company makes the PlayStation?", options: ["Microsoft", "Nintendo", "Sony", "Sega"], answer: 2 },
+  { question: "What year was the iPhone first released?", options: ["2005", "2006", "2007", "2008"], answer: 2 },
+  { question: "What does 'FPS' mean in gaming?", options: ["First Person Shooter (game genre)", "Frames Per Second", "Final Player Score", "Both A and B are correct"], answer: 3 },
+  { question: "What is the best-selling video game of all time?", options: ["Tetris", "Grand Theft Auto V", "Minecraft", "Wii Sports"], answer: 2 },
+  { question: "Which company owns YouTube?", options: ["Apple", "Amazon", "Meta", "Google/Alphabet"], answer: 3 },
+  { question: "What does HTML stand for?", options: ["Hyper Transfer Markup Language", "HyperText Markup Language", "Hyper Terminal Machine Language", "High Tech Markup Language"], answer: 1 },
+  { question: "What is the most popular programming language in 2024?", options: ["Java", "C++", "Python", "JavaScript"], answer: 3 },
+  { question: "What does 'lag' mean in gaming/internet?", options: ["A slow connection causing delays", "A type of game mode", "Losing a game", "Loading a game"], answer: 0 },
+
+  // ── Internet Culture / Memes ───────────────────────────────────────────────
+  { question: "What does 'IYKYK' mean?", options: ["I Yield Kids Yielding Kids", "If You Know You Know", "I'm Your Keyboard You Know", "It's Your Known Keyword"], answer: 1 },
+  { question: "What is a 'catfish' in internet slang?", options: ["A type of fish meme", "Someone who fakes their identity online", "A viral video trend", "A fishing minigame"], answer: 1 },
+  { question: "What does 'cancel culture' refer to?", options: ["Canceling streaming services", "Online call-outs removing support from someone", "Deleting social media", "Blocking people"], answer: 1 },
+  { question: "What does 'AFK' mean?", options: ["Always Fighting Kritters", "Away From Keyboard", "All For the Kids", "Actually Fine K"], answer: 1 },
+  { question: "What does 'TBT' stand for on social media?", options: ["To Be Typed", "Throwback Thursday", "Try Before Tuesday", "The Big Thing"], answer: 1 },
+  { question: "What meme features 'This is Fine' with a dog in a burning room?", options: ["The 'Fine Dog' meme", "The 'Everything Is Fine' meme", "The 'KC Green' meme", "All names are used"], answer: 3 },
+  { question: "What does 'OG' mean in internet culture?", options: ["Obviously Good", "Original Gangster / the original", "Over Great", "Only Gaming"], answer: 1 },
+  { question: "What does 'smh' stand for?", options: ["Shaking My Head", "So Much Hate", "Some Mad Hype", "Shrug My Haters"], answer: 0 },
+  { question: "What does 'ngl' mean in text speak?", options: ["Not Gonna Lie", "Nice Guy Logic", "Never Got Lost", "No Game Life"], answer: 0 },
+  { question: "What does 'tbh' mean?", options: ["To Be Honest", "Try Being Here", "The Best Human", "Thinking But Hiding"], answer: 0 },
+
+  // ── Music ─────────────────────────────────────────────────────────────────
+  { question: "Which artist is known for 'Old Town Road'?", options: ["Cardi B", "Lil Nas X", "Post Malone", "Drake"], answer: 1 },
+  { question: "What music genre is Travis Scott known for?", options: ["Pop", "R&B", "Hip-Hop/Trap", "EDM"], answer: 2 },
+  { question: "Which artist released 'Anti-Hero'?", options: ["Ariana Grande", "Dua Lipa", "Taylor Swift", "Selena Gomez"], answer: 2 },
+  { question: "What is Drake's real first name?", options: ["Aubrey", "Drake", "Darius", "Devon"], answer: 0 },
+  { question: "What streaming platform pays artists per stream?", options: ["Spotify", "YouTube Music", "Apple Music", "All of the above"], answer: 3 },
+  { question: "Who sang 'Blinding Lights'?", options: ["Bruno Mars", "The Weeknd", "Post Malone", "Justin Bieber"], answer: 1 },
+  { question: "What genre is Doja Cat primarily?", options: ["Country", "Classical", "Pop/Hip-Hop", "Jazz"], answer: 2 },
+  { question: "How many Grammys has Beyoncé won (approx. as of 2024)?", options: ["10", "20", "32", "40"], answer: 2 },
+  { question: "Which artist is known as 'Queen of Pop' in the modern era?", options: ["Lady Gaga", "Taylor Swift", "Beyoncé", "Rihanna"], answer: 1 },
+  { question: "What genre is Bad Bunny known for?", options: ["Reggaeton / Latin Urban", "Pop", "Country", "Metal"], answer: 0 },
+]
