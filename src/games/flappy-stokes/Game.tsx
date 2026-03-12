@@ -148,6 +148,9 @@ export default function FlappyStokes({ gameId, gameSlug }: FlappyStokesProps) {
       }
     }
     const onTouch = (e: TouchEvent) => {
+      // Don't steal taps from buttons or links (character select, back button, score screen)
+      if ((e.target as HTMLElement).closest('button, a')) return
+      if (stateRef.current === 'CHARACTER_SELECT') return
       e.preventDefault()
       doFlap()
     }

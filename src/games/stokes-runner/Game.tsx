@@ -204,7 +204,13 @@ export default function StokesRunner({ gameId, gameSlug }: Props) {
     const kd = (e: KeyboardEvent) => {
       if (e.code === 'Space' || e.code === 'ArrowUp' || e.key === 'w' || e.key === 'W') { jump(); e.preventDefault() }
     }
-    const td = (e: TouchEvent) => { jump(); e.preventDefault() }
+    const td = (e: TouchEvent) => {
+      // Don't steal taps from buttons or links (character select, back button, score screen)
+      if ((e.target as HTMLElement).closest('button, a')) return
+      if (stateRef.current !== 'PLAYING') return
+      e.preventDefault()
+      jump()
+    }
     const md = (e: MouseEvent) => { if (e.button === 0) jump() }
     window.addEventListener('keydown', kd)
     window.addEventListener('touchstart', td, { passive: false })
