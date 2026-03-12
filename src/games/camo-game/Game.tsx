@@ -455,7 +455,12 @@ export default function CamoGame({ gameId, gameSlug }: Props) {
       if (y > 50) charPosRef.current = { x, y }
     }
     const onClick = (e: MouseEvent) => place(e.clientX, e.clientY)
-    const onTouch = (e: TouchEvent) => { place(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault() }
+    const onTouch = (e: TouchEvent) => {
+      // Only block default when actually placing — avoids eating button taps on CHAR_SELECT
+      if (stateRef.current !== 'PLAYING' || phaseRef.current !== 'PLACING') return
+      place(e.touches[0].clientX, e.touches[0].clientY)
+      e.preventDefault()
+    }
     window.addEventListener('click', onClick)
     window.addEventListener('touchstart', onTouch, { passive: false })
     return () => { window.removeEventListener('click', onClick); window.removeEventListener('touchstart', onTouch) }

@@ -32,7 +32,6 @@ export function GamePlayer({ game, mode = 'normal' }: GamePlayerProps) {
   const [showScoreCard, setShowScoreCard] = useState(false)
   const [showShareCard, setShowShareCard] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [showHUD, setShowHUD] = useState(true)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -124,12 +123,7 @@ export function GamePlayer({ game, mode = 'normal' }: GamePlayerProps) {
       )}
     >
       {/* Top bar */}
-      <div
-        className={cn(
-          'flex items-center justify-between px-4 py-2 bg-[var(--bg-primary)] border-b border-[var(--border)] transition-opacity',
-          !showHUD && 'opacity-0 pointer-events-none'
-        )}
-      >
+      <div className="flex items-center justify-between px-4 py-2 bg-[var(--bg-primary)] border-b border-[var(--border)]">
         <div className="flex items-center gap-3">
           <Link href={`/games/${game.slug}`} className="text-[var(--text-muted)] hover:text-white transition-colors">
             <ArrowLeft size={18} />
@@ -219,46 +213,6 @@ export function GamePlayer({ game, mode = 'normal' }: GamePlayerProps) {
           rank={rank ?? undefined}
           onClose={() => setShowShareCard(false)}
         />
-      )}
-
-      {/* Bottom HUD (collapsible) */}
-      <div
-        className={cn(
-          'flex items-center justify-between px-4 py-2 bg-[var(--bg-primary)] border-t border-[var(--border)] transition-all duration-200',
-          !showHUD && 'opacity-0 pointer-events-none h-0 py-0 border-0 overflow-hidden'
-        )}
-      >
-        <div className="flex items-center gap-4 text-xs text-[var(--text-muted)]">
-          <span>BEST: <span className="text-white">{formatScore(personalBest)}</span></span>
-          {rank && <span>RANK: <span className="text-[var(--accent-primary)]">#{rank}</span></span>}
-        </div>
-        <button
-          onClick={() => setShowHUD(false)}
-          className="text-[var(--text-muted)] text-xs hover:text-white transition-colors"
-        >
-          Hide HUD
-        </button>
-      </div>
-
-      {/* Sticky restore tab — only visible when HUD is hidden */}
-      {!showHUD && (
-        <button
-          onClick={() => setShowHUD(true)}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-1 px-3 py-1 rounded-t-lg text-[10px] transition-colors z-20"
-          style={{
-            background: 'rgba(20,20,20,0.85)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            borderBottom: 'none',
-            color: 'rgba(255,255,255,0.4)',
-            backdropFilter: 'blur(4px)',
-          }}
-          aria-label="Show HUD"
-        >
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
-            <path d="M5 0L0 6h10L5 0z" />
-          </svg>
-          <span style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.06em' }}>HUD</span>
-        </button>
       )}
     </div>
   )

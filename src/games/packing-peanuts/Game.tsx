@@ -448,7 +448,9 @@ export default function PackingPeanuts({ gameId, gameSlug }: Props) {
     const peanuts = peanutsRef.current
     const colorSet = superMode ? SUPER_PEANUT_COLORS : PEANUT_COLORS
     if (peanuts.length < 800) {
-      for (let i = 0; i < activeSpawnRate; i++) {
+      // Fractional spawn rate: e.g. 1.5 = 1 peanut always + 50% chance of a 2nd
+      const spawnCount = Math.floor(activeSpawnRate) + (Math.random() < (activeSpawnRate % 1) ? 1 : 0)
+      for (let i = 0; i < spawnCount; i++) {
         const spread = superMode ? 0.28 : 0.22
         const ang = aimAngle + (Math.random() - 0.5) * spread
         const speed = blowerSpeed * (0.88 + Math.random() * 0.24) * (superMode ? 1.15 : 1)

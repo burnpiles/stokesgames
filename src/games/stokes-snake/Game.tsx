@@ -241,22 +241,26 @@ export default function StokesSnake({ gameId, gameSlug }: Props) {
     return () => ro.disconnect()
   }, [draw])
 
-  // Swipe controls
+  // Touch controls — swipe OR hold-and-drag continuously steers the snake
   useEffect(() => {
     let sx = 0, sy = 0
-    const onStart = (e: TouchEvent) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY }
-    const onEnd = (e: TouchEvent) => {
-      const dx = e.changedTouches[0].clientX - sx
-      const dy = e.changedTouches[0].clientY - sy
-      const opposite: Record<Dir, Dir> = { UP: 'DOWN', DOWN: 'UP', LEFT: 'RIGHT', RIGHT: 'LEFT' }
-      let dir: Dir
-      if (Math.abs(dx) > Math.abs(dy)) dir = dx > 0 ? 'RIGHT' : 'LEFT'
-      else dir = dy > 0 ? 'DOWN' : 'UP'
+    const opposite: Record<Dir, Dir> = { UP: 'DOWN', DOWN: 'UP', LEFT: 'RIGHT', RIGHT: 'LEFT' }
+    const applyDir = (dx: number, dy: number) => {
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return
+      const dir: Dir = Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'RIGHT' : 'LEFT') : (dy > 0 ? 'DOWN' : 'UP')
       if (dir !== opposite[dirRef.current]) nextDirRef.current = dir
     }
+    const onStart = (e: TouchEvent) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY }
+    const onMove = (e: TouchEvent) => { applyDir(e.touches[0].clientX - sx, e.touches[0].clientY - sy) }
+    const onEnd = (e: TouchEvent) => { applyDir(e.changedTouches[0].clientX - sx, e.changedTouches[0].clientY - sy) }
     window.addEventListener('touchstart', onStart, { passive: true })
+    window.addEventListener('touchmove', onMove, { passive: true })
     window.addEventListener('touchend', onEnd, { passive: true })
-    return () => { window.removeEventListener('touchstart', onStart); window.removeEventListener('touchend', onEnd) }
+    return () => {
+      window.removeEventListener('touchstart', onStart)
+      window.removeEventListener('touchmove', onMove)
+      window.removeEventListener('touchend', onEnd)
+    }
   }, [])
 
   useEffect(() => () => { if (intervalRef.current) clearInterval(intervalRef.current) }, [])

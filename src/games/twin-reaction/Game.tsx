@@ -26,6 +26,7 @@ export default function TwinReaction({ gameId, gameSlug }: Props) {
   const [personalBest, setPersonalBest] = useState(0)
   const [currentSignal, setCurrentSignal] = useState(REACTION_SIGNALS[0])
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const resultEnteredAtRef = useRef<number>(0)
   const sdkRef = useRef<GameSDK | null>(null)
 
   useEffect(() => {
@@ -67,6 +68,7 @@ export default function TwinReaction({ gameId, gameSlug }: Props) {
       setIsTooEarly(true)
       setTimes((prev) => [...prev, REACTION_CONFIG.tooEarlyPenalty])
       setLastReaction(null)
+      resultEnteredAtRef.current = Date.now()
       setPhase('RESULT')
       return
     }
@@ -89,6 +91,7 @@ export default function TwinReaction({ gameId, gameSlug }: Props) {
         }
         setPhase('SCORE_SCREEN')
       } else {
+        resultEnteredAtRef.current = Date.now()
         setPhase('RESULT')
       }
       return newTimes
@@ -99,6 +102,9 @@ export default function TwinReaction({ gameId, gameSlug }: Props) {
     if (phase === 'WAIT' || phase === 'SIGNAL') {
       handleTap(round)
     } else if (phase === 'RESULT') {
+      // Require 400ms buffer — prevents the finger that triggered SIGNAL
+      // from immediately advancing to the next round via a phantom touchstart
+      if (Date.now() - resultEnteredAtRef.current < 400) return
       const nextRound = round + 1
       setRound(nextRound)
       startRound(nextRound)
